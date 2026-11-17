@@ -320,3 +320,93 @@ La documentación final se almacenará en `docs/`:
 - `Guia_Diseno.pdf`
 
 El SRS y la Guía de diseño se elaborarán en LaTeX como parte de la entrega documental.
+----------------------------------------------------------------------------------------------------
+## Implementación de Laravel al Proyecto 
+En esta sección se integra el backend del sistema utilizando **Laravel** bajo el patrón Arquitectónico **MVC (Modelo-Vista-Controlador)**, conectándose a una base de datos relacional en **PostgreSQL**.
+## Aspectos claves implementados:
+-**Migraciones y Modelos:** Estructuración de tablas en PostgreSQL (como `espacios`, `reservas`, `usuarios` y `contactos`).
+- **Controladores y Endpoints (API / Web):** Lógica de negocio para manejar peticiones HTTP seguras con protección CSRF.
+- **Vistas Blade:** Integración de componentes visuales con Bootstrap 5 que consumen los endpoints mediante JavaScript (`Fetch API`) de forma dinámica.
+## Características Principales
+-**Sistema de Autenticación:** Registro, inicio de sesión seguro y gestión de perfiles de usuario.
+- **Gestión de Espacios:** Visualización, filtrado y administración de los cajones de estacionamiento disponibles.
+- **Módulo de Reservas:** Creación, actualización y cancelación de reservas de forma intuitiva.
+- **Módulo de Contacto y Soporte:** Formulario público con validaciones en tiempo real y panel de administración (`/mensajes`) para supervisar, revisar y eliminar solicitudes de los usuarios conectadas directamente a la base de datos.
+## Tecnologias y Stack
+- **Backend:** PHP / Laravel (Arquitectura MVC)
+- **Base de Datos:** PostgreSQL
+- **Frontend / Diseño:** HTML5, Bootstrap 5, CSS3, JavaScript (Vanilla JS / Fetch API)
+- **Control de Versiones:** Git y GitHub
+Para esto es importante ya haber instalado Laravel y lo necesario para poder hacer una correcta conexión a la base datos.
+## Guía de Instalación y Configuración Local 
+En este caso se tubo que clonar el repositorio y ejecutar este proyecto en un entorno local, sigue estos pasos:
+- **Clonar el repositorio:**
+  ```bash
+  git clone [https://github.com/hdez20892-ux/AutoPark-OL.git](https://github.com/hdez20892-ux/AutoPark-OL.git)
+  cd AutoPark-OL
+## Instalar las dependencias de PHP (Composer)
+composer install
+## Configurar el archivo de entorno
+-**Copia el archivo de ejemplo y renubralo a .env**
+cp .env.example .env
+-**Genera la llave de la aplicación**
+php artisan key:generate
+## Configurar la Base de Datos
+-**Abre tu archivo .env y configura tus credenciales de PostgreSQL**
+DB_CONNECTION=pgsql
+DB_HOST=127.0.0.1
+DB_PORT=5432
+DB_DATABASE=tu_base_de_datos
+DB_USERNAME=tu_usuario
+DB_PASSWORD=tu_contraseña
+## Ejecutar las migraciones
+php artisan migrate
+## Iniciar el servidor de desarrollo
+php artisan serve
+se abrirá una URL el cual es http://127.0.0.1:8000
+## Capturas de Pantalla de cada interfaz realizada con el CRUD
+En esta parte se mostrara las interfaces correspondientes los cuales son :
+**Login**
+-En esta parte el login se registra a una base datos correpondiente en la cual se validan los datos ingresados en la parte de creara cuenta
+<img width="1357" height="856" alt="image" src="https://github.com/user-attachments/assets/a72cb44a-35c8-49a8-8f4b-671298f9eabe" />
+En esta parte se muestra la tabla de datos y los registros pero también en la app lo muestra 
+<img width="1627" height="646" alt="image" src="https://github.com/user-attachments/assets/2e420fcf-d0fc-44d2-ba89-f35bd01237c5" />
+Ya después de esto te redirecciona ala interfaz principal en donde se encuentran todas las funciones correspondientes
+<img width="1626" height="876" alt="image" src="https://github.com/user-attachments/assets/4f20ad06-b555-4cef-9249-7d7d3a6d68ef" />
+**Buscar**
+Em esta parte te manda a la búsqueda de estacionamiento pero para que te reserve necesitas en crear un nuevo estacionamientos en mis espacios el cual te dará publicar, después vuelves a la parte de buscar para que después puedas reservar en la parte de detalles y se registre en la parte de Mis Reservas.
+<img width="1633" height="872" alt="image" src="https://github.com/user-attachments/assets/b3fe3a88-c2aa-42d6-bf17-8c08660cc921" />
+<img width="1607" height="872" alt="image" src="https://github.com/user-attachments/assets/e1983511-1020-407e-9e0f-f2395a515a0d" />
+<img width="1625" height="866" alt="image" src="https://github.com/user-attachments/assets/d95cce96-212a-4303-8c7c-7e10098906cb" />
+**Mis espacios**
+En este apartado se muestra la parte del CRUD correspondiente en el cual se elaboro para eliminar los espacio de igual manera se eliminaran en la parte de la base datos.
+<img width="1627" height="876" alt="image" src="https://github.com/user-attachments/assets/23289a9d-08a0-4667-86aa-4c747c37577a" />
+ En esta parte igual se encuentra la parte de la crear o publicar un nuevo espacio, el cual se genera el registró en la base de datos.
+ <img width="1628" height="867" alt="image" src="https://github.com/user-attachments/assets/aaa2bed5-8a36-494b-b651-d7909ff65b8d" />
+**Perfil**
+Se genera un editar perfil y se igual una visualización del la contraseña puesta por el usuario dado.
+<img width="1631" height="871" alt="image" src="https://github.com/user-attachments/assets/70d2d77b-1ef1-4c4a-8ee9-c2c679534bb5" />
+Todas tienen una navegabilidad correspondiente de igual manera en la cual se ven correctamente con el mismo diseño responsiva con lo que ya teníamos en el proyecto anterior con HTML.
+## Rutas de Navegacion
+## 🗺️ Tabla de Rutas del Sistema
+
+A continuación se detallan las rutas web y los endpoints de API configurados en el proyecto:
+
+| Ruta / Endpoint | Método HTTP | Descripción |
+| :--- | :---: | :--- |
+| `/` o `/index` | `GET` | Página principal (Landing Page) del sistema. |
+| `/inicio` | `GET` | Panel de inicio para usuarios autenticados. |
+| `/busqueda` | `GET` | Interfaz de búsqueda de espacios de estacionamiento. |
+| `/contacto` | `GET` | Vista del formulario público de contacto. |
+| `/espacios` | `GET` | Listado y catálogo de espacios disponibles. |
+| `/reservas` | `GET` | Vista HTML para la gestión de reservas del usuario. |
+| `/usuarios` | `GET` | Vista web de gestión y administración de usuarios. |
+| `/mensajes` | `GET` | Panel administrativo para revisar y eliminar mensajes de contacto. |
+| `/api/contacto` | `POST` | Endpoint para registrar un nuevo mensaje de contacto. |
+| `/api/contactos` | `GET` | Endpoint para obtener la lista de mensajes (API). |
+| `/api/contactos/{id}` | `DELETE` | Endpoint para eliminar un mensaje específico desde el panel. |
+| `/api/reservas` | `GET / POST` | Consulta y creación de reservas mediante peticiones asíncronas. |
+
+
+
+
