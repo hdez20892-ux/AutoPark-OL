@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <!-- Token CSRF indispensable para permitir peticiones POST seguras con fetch -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title>Registro - AutoPark</title>
+
+    <link rel="stylesheet" href="{{ asset('assets/vendor/bootstrap/bootstrap.min.css') }}">
+
+    <script src="{{ asset('assets/vendor/bootstrap/bootstrap.bundle.min.js') }}"></script>
+
+    <link
+        rel="stylesheet"
+        href="{{ asset('components/navbar/navbar.css') }}"
+    >
+
+    <link
+        rel="stylesheet"
+        href="{{ asset('css/registro.css') }}"
+    >
+
+</head>
+
+
+<body data-navbar-mode="guest">
+
+    <!-- NAVBAR -->
+    <div id="navbar"></div>
+
+
+    <!-- CONTENIDO -->
+    <main class="registro-page">
+
+        <section class="registro-header">
+
+            <h1>Crea tu cuenta</h1>
+
+            <p>
+                Regístrate para reservar estacionamientos
+                o publicar tus propios espacios.
+            </p>
+
+        </section>
+
+
+        <div class="registro-layout">
+
+
+            <!-- FORMULARIO -->
+            <section class="registro-card">
+
+                <h2>Datos de registro</h2>
+
+
+                <form id="registroForm">
+
+
+                    <div class="form-grid">
+
+
+                        <div class="form-group">
+
+                            <label for="nombre">
+                                Nombre completo
+                            </label>
+
+                            <input class="form-control"
+                                type="text"
+                                id="nombre"
+                                name="nombre"
+                                placeholder="Ej. Fernando Ruiz"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="email">
+                                Correo electrónico
+                            </label>
+
+                            <!-- Cambiado a id="email" para enlazarse perfectamente con registro.js -->
+                            <input class="form-control"
+                                type="email"
+                                id="email"
+                                name="email"
+                                placeholder="correo@ejemplo.com"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="password">
+                                Contraseña
+                            </label>
+
+                            <input class="form-control"
+                                type="password"
+                                id="password"
+                                name="password"
+                                placeholder="Mínimo 8 caracteres"
+                                minlength="8"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="confirmPassword">
+                                Confirmar contraseña
+                            </label>
+
+                            <input class="form-control"
+                                type="password"
+                                id="confirmPassword"
+                                name="confirmPassword"
+                                placeholder="Repite tu contraseña"
+                                minlength="8"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- TIPO DE CUENTA -->
+
+                    <div class="account-section">
+
+                        <span class="account-label">
+                            Tipo de cuenta
+                        </span>
+
+
+                        <div class="account-options">
+
+                            <label class="account-option selected">
+
+                                <input class="form-check-input"
+                                    type="radio"
+                                    name="tipoCuenta"
+                                    value="conductor"
+                                    checked
+                                >
+
+                                Conductor
+
+                            </label>
+
+
+                            <label class="account-option">
+
+                                <input class="form-check-input"
+                                    type="radio"
+                                    name="tipoCuenta"
+                                    value="propietario"
+                                >
+
+                                Propietario
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- TÉRMINOS -->
+
+                    <label class="terms">
+
+                        <input class="form-check-input"
+                            type="checkbox"
+                            id="terminos"
+                            required
+                        >
+
+                        <span>
+                            Acepto los términos y el aviso de privacidad
+                        </span>
+
+                    </label>
+
+
+                    <!-- ERROR -->
+
+                    <p
+                        id="registroMensaje"
+                        class="registro-mensaje"
+                    ></p>
+
+
+                    <!-- BOTÓN -->
+
+                    <button
+                        type="submit"
+                        class="btn btn-crear-cuenta"
+                    >
+                        Crear cuenta
+                    </button>
+
+
+                    <p class="login-link">
+
+                        ¿Ya tienes una cuenta?
+
+                        <a href="/login">
+                            Inicia sesión
+                        </a>
+
+                    </p>
+
+                </form>
+
+            </section>
+
+
+            <!-- PANEL DERECHO -->
+
+            <aside class="registro-info">
+
+                <img
+                    src="{{ asset('assets/images/logo-autopark.png') }}"
+                    alt="AutoPark"
+                    class="registro-info-logo"
+                >
+
+                <h2>
+                    Tu espacio, tu tiempo
+                </h2>
+
+                <p>
+                    Gestiona reservas, disponibilidad
+                    y espacios desde una interfaz clara
+                    y sencilla.
+                </p>
+
+            </aside>
+
+
+        </div>
+
+    </main>
+
+
+    <!-- NAVBAR -->
+
+    <script>
+
+        fetch("{{ asset('components/navbar/navbar.html') }}")
+
+            .then(response => response.text())
+
+            .then(data => {
+
+                document.getElementById("navbar").innerHTML = data;
+
+                const script =
+                    document.createElement("script");
+
+                script.src =
+                    "{{ asset('components/navbar/navbar.js') }}";
+
+                document.body.appendChild(script);
+
+            })
+
+            .catch(error => {
+
+                console.error(
+                    "Error al cargar el navbar:",
+                    error
+                );
+
+            });
+
+    </script>
+
+
+    <script src="{{ asset('js/registro.js') }}"></script>
+
+</body>
+
+</html>

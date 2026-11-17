@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <!-- Token CSRF obligatorio para las peticiones Fetch -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title>Mis espacios - AutoPark</title>
+
+    <link rel="stylesheet" href="{{ asset('assets/vendor/bootstrap/bootstrap.min.css') }}">
+
+    <script src="{{ asset('assets/vendor/bootstrap/bootstrap.bundle.min.js') }}"></script>
+
+    <link
+        rel="stylesheet"
+        href="{{ asset('components/navbar/navbar.css') }}"
+    >
+
+    <link
+        rel="stylesheet"
+        href="{{ asset('css/espacios.css') }}"
+    >
+
+</head>
+
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <div id="navbar"></div>
+
+
+    <main class="espacios-page">
+
+
+        <!-- ENCABEZADO -->
+
+        <section class="page-header">
+
+            <div>
+
+                <h1>
+                    Mis espacios
+                </h1>
+
+                <p>
+                    Publica y administra la disponibilidad
+                    de tus estacionamientos.
+                </p>
+
+            </div>
+
+
+            <button
+                type="button"
+                class="btn btn-publicar"
+                id="openModal"
+            >
+                + Publicar espacio
+            </button>
+
+        </section>
+
+
+        <!-- CONTENIDO -->
+
+        <div class="espacios-layout">
+
+
+            <!-- LISTA -->
+
+            <section
+                class="espacios-list"
+                id="espaciosList"
+            >
+
+                @foreach ($espacios ?? [] as $espacio)
+
+                <article
+                    class="espacio-card"
+                    data-id="{{ $espacio->id }}"
+                    data-cantidad="{{ $espacio->espacios_disponibles }}"
+                    data-disponible="{{ $espacio->disponibilidad === 'Disponible' ? 'true' : 'false' }}"
+                >
+
+                    <div class="espacio-image">
+
+                        <img
+                            src="{{ asset('assets/images/logo-autopark.png') }}"
+                            alt="AutoPark"
+                        >
+
+                    </div>
+
+
+                    <div class="espacio-info">
+
+                        <h2>
+                            {{ $espacio->nombre }}
+                        </h2>
+
+                        <p>
+                            {{ $espacio->ubicacion }}
+                        </p>
+
+                        <p>
+                            ${{ $espacio->precio_hora }} MXN / hora
+                        </p>
+
+                        <p>
+                            Horario: {{ $espacio->hora_apertura }} – {{ $espacio->hora_cierre }}
+                        </p>
+
+                        <p class="cantidad-texto">
+                            {{ $espacio->espacios_disponibles }} espacios disponibles
+                        </p>
+
+                    </div>
+
+
+                    <div class="espacio-actions">
+
+                        <span class="status {{ $espacio->disponibilidad === 'Disponible' ? 'disponible' : 'no-disponible' }}">
+                            {{ $espacio->disponibilidad }}
+                        </span>
+
+
+                        <button
+                            type="button"
+                            class="btn-secondary"
+                        >
+                            Editar
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="btn-primary"
+                        >
+                            Gestionar disponibilidad
+                        </button>
+
+                        <button
+                            type="button"
+                            class="btn-eliminar btn btn-outline-danger btn-sm rounded-pill"
+                        >
+                            Eliminar
+                        </button>
+
+                    </div>
+
+                </article>
+
+                @endforeach
+
+            </section>
+
+
+            <!-- RESUMEN -->
+
+            <aside class="summary-card">
+
+                <h2>
+                    Resumen de disponibilidad
+                </h2>
+
+
+                <div class="summary-item">
+
+                    <p>
+                        Espacios publicados
+                    </p>
+
+                    <strong id="totalEspacios">
+                        {{ isset($espacios) ? $espacios->count() : 0 }}
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-item">
+
+                    <p>
+                        Disponibles hoy
+                    </p>
+
+                    <strong id="disponiblesHoy">
+                        {{ isset($espacios) ? $espacios->where('disponibilidad', 'Disponible')->count() : 0 }}
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-item">
+
+                    <p>
+                        Reservas próximas
+                    </p>
+
+                    <strong>
+                        5
+                    </strong>
+
+                </div>
+
+            </aside>
+
+        </div>
+
+    </main>
+
+
+    <!-- =========================
+         MODAL BOOTSTRAP
+    ========================== -->
+
+    <div
+        class="modal fade"
+        id="modalPublicar"
+        tabindex="-1"
+        aria-labelledby="modalTitle"
+        aria-hidden="true"
+    >
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content autopark-modal-content">
+
+                <div class="modal-header">
+                    <div>
+                        <h2
+                            class="modal-title fs-3"
+                            id="modalTitle"
+                        >
+                            Publicar espacio
+                        </h2>
+
+                        <p
+                            class="mb-0 mt-2"
+                            id="modalDescription"
+                        >
+                            Ingresa los datos del estacionamiento.
+                        </p>
+                    </div>
+
+                    <button
+                        type="button"
+                        class="btn-close"
+                        id="closeModal"
+                        data-bs-dismiss="modal"
+                        aria-label="Cerrar"
+                    ></button>
+                </div>
+
+
+                <form id="publicarForm">
+                    <div class="modal-body">
+
+                        <div class="mb-3">
+                            <label
+                                for="nombreEspacio"
+                                class="form-label"
+                            >
+                                Nombre del espacio
+                            </label>
+
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="nombreEspacio"
+                                placeholder="Ej. Estacionamiento Centro"
+                                required
+                            >
+                        </div>
+
+
+                        <div class="mb-3">
+                            <label
+                                for="ubicacion"
+                                class="form-label"
+                            >
+                                Ubicación
+                            </label>
+
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="ubicacion"
+                                placeholder="Ej. Centro de Pachuca"
+                                required
+                            >
+                        </div>
+
+
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label
+                                    for="precio"
+                                    class="form-label"
+                                >
+                                    Precio por hora
+                                </label>
+
+                                <input
+                                    type="number"
+                                    class="form-control"
+                                    id="precio"
+                                    min="0"
+                                    placeholder="20"
+                                    required
+                                >
+                            </div>
+
+                            <div class="col-md-6">
+                                <label
+                                    for="cantidad"
+                                    class="form-label"
+                                >
+                                    Espacios disponibles
+                                </label>
+
+                                <input
+                                    type="number"
+                                    class="form-control"
+                                    id="cantidad"
+                                    min="0"
+                                    placeholder="5"
+                                    required
+                                >
+                            </div>
+                        </div>
+
+
+                        <div class="mt-3">
+                            <label
+                                for="disponibilidad"
+                                class="form-label"
+                            >
+                                Disponibilidad
+                            </label>
+
+                            <select
+                                class="form-select"
+                                id="disponibilidad"
+                                required
+                            >
+                                <option value="Disponible">
+                                    Disponible
+                                </option>
+
+                                <option value="No disponible">
+                                    No disponible
+                                </option>
+                            </select>
+                        </div>
+
+
+                        <div class="row g-3 mt-0">
+                            <div class="col-md-6">
+                                <label
+                                    for="horaInicio"
+                                    class="form-label"
+                                >
+                                    Hora de apertura
+                                </label>
+
+                                <input
+                                    type="time"
+                                    class="form-control"
+                                    id="horaInicio"
+                                    required
+                                >
+                            </div>
+
+                            <div class="col-md-6">
+                                <label
+                                    for="horaFin"
+                                    class="form-label"
+                                >
+                                    Hora de cierre
+                                </label>
+
+                                <input
+                                    type="time"
+                                    class="form-control"
+                                    id="horaFin"
+                                    required
+                                >
+                            </div>
+                        </div>
+
+
+                        <p
+                            id="publicarMensaje"
+                            class="form-message mt-3 mb-0"
+                            role="alert"
+                        ></p>
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button
+                            type="button"
+                            class="btn btn-cancelar"
+                            id="cancelModal"
+                            data-bs-dismiss="modal"
+                        >
+                            Cancelar
+                        </button>
+
+                        <button
+                            type="submit"
+                            class="btn btn-guardar"
+                            id="submitModal"
+                        >
+                            Publicar espacio
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- NAVBAR SCRIPT -->
+
+    <script>
+
+        fetch("{{ asset('components/navbar/navbar.html') }}")
+
+            .then(response => response.text())
+
+            .then(data => {
+
+                document.getElementById(
+                    "navbar"
+                ).innerHTML = data;
+
+
+                const script =
+                    document.createElement(
+                        "script"
+                    );
+
+
+                script.src =
+                    "{{ asset('components/navbar/navbar.js') }}";
+
+
+                document.body.appendChild(
+                    script
+                );
+
+            })
+
+            .catch(error => {
+
+                console.error(
+                    "Error al cargar el navbar:",
+                    error
+                );
+
+            });
+
+    </script>
+
+
+    <script src="{{ asset('js/espacios.js') }}"></script>
+
+</body>
+
+</html>

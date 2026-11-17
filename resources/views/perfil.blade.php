@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Perfil - AutoPark</title>
+
+    <link rel="stylesheet" href="{{ asset('assets/vendor/bootstrap/bootstrap.min.css') }}">
+    
+    <!-- Bootstrap Icons para el icono del ojo -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <script src="{{ asset('assets/vendor/bootstrap/bootstrap.bundle.min.js') }}"></script>
+
+    <link
+        rel="stylesheet"
+        href="{{ asset('components/navbar/navbar.css') }}"
+    >
+
+    <link
+        rel="stylesheet"
+        href="{{ asset('css/perfil.css') }}"
+    >
+
+</head>
+
+
+<body data-navbar-mode="user">
+
+    <!-- NAVBAR REUTILIZABLE -->
+    <div id="navbar"></div>
+
+
+    <main class="perfil-page">
+
+
+        <!-- ENCABEZADO -->
+
+        <header class="perfil-header">
+
+            <h1>Perfil</h1>
+
+            <p class="perfil-subtitle">
+                Consulta y edita la información asociada a tu cuenta.
+            </p>
+
+        </header>
+
+
+        <!-- DISTRIBUCIÓN PRINCIPAL -->
+
+        <div class="perfil-layout">
+
+
+            <!-- PANEL IZQUIERDO (TARJETA LATERAL) -->
+
+            <aside class="card-sidebar">
+
+                <div
+                    class="avatar"
+                    id="avatarInitials"
+                >FR</div>
+
+                <h2
+                    class="user-name"
+                    id="userNameTitle"
+                >Fernando Ruiz</h2>
+
+                <p class="user-status">
+                    Conductor · Cuenta activa
+                </p>
+
+
+                <div class="divider"></div>
+
+
+                <div class="stats-list">
+
+                    <div class="stat-item">
+                        <span>Reservas realizadas</span>
+                        <span class="stat-number">12</span>
+                    </div>
+
+                    <div class="stat-item">
+                        <span>Espacios publicados</span>
+                        <span class="stat-number">3</span>
+                    </div>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    class="btn btn-outline btn-full"
+                    id="btnLogout"
+                >
+                    Cerrar sesión
+                </button>
+
+            </aside>
+
+
+            <!-- PANEL DERECHO (FORMULARIO DE PERFIL) -->
+
+            <section class="card-form">
+
+                <h2>Información personal</h2>
+
+
+                <form id="profileForm">
+
+
+                    <div class="form-grid">
+
+
+                        <!-- NOMBRE -->
+
+                        <div class="form-group">
+
+                            <label for="nombre">
+                                Nombre completo
+                            </label>
+
+                            <input class="form-control"
+                                type="text"
+                                id="nombre"
+                                name="nombre"
+                                value="Fernando Ruiz"
+                                disabled
+                                required
+                            >
+
+                        </div>
+
+
+                        <!-- CORREO -->
+
+                        <div class="form-group">
+
+                            <label for="correo">
+                                Correo electrónico
+                            </label>
+
+                            <input class="form-control"
+                                type="email"
+                                id="correo"
+                                name="correo"
+                                value="correo@ejemplo.com"
+                                disabled
+                                required
+                            >
+
+                        </div>
+
+
+                        <!-- TELÉFONO -->
+
+                        <div class="form-group">
+
+                            <label for="telefono">
+                                Teléfono
+                            </label>
+
+                            <input class="form-control"
+                                type="tel"
+                                id="telefono"
+                                name="telefono"
+                                value="771 000 0000"
+                                disabled
+                            >
+
+                        </div>
+
+
+                        <!-- TIPO DE CUENTA -->
+
+                        <div class="form-group">
+
+                            <label for="tipoCuenta">
+                                Tipo de cuenta
+                            </label>
+
+                            <input class="form-control"
+                                type="text"
+                                id="tipoCuenta"
+                                name="tipoCuenta"
+                                value="Conductor"
+                                disabled
+                            >
+
+                        </div>
+
+
+                        <!-- CIUDAD -->
+
+                        <div class="form-group">
+
+                            <label for="ciudad">
+                                Ciudad
+                            </label>
+
+                            <input class="form-control"
+                                type="text"
+                                id="ciudad"
+                                name="ciudad"
+                                value="Pachuca de Soto"
+                                disabled
+                            >
+
+                        </div>
+
+
+                        <!-- CONTRASEÑA -->
+
+                        <div class="form-group">
+
+                            <label for="contrasena">
+                                Contraseña
+                            </label>
+
+                            <div class="input-group">
+                                <input class="form-control"
+                                    type="password"
+                                    id="contrasena"
+                                    name="contrasena"
+                                    value="12345678"
+                                    disabled
+                                >
+                                <button class="btn btn-outline-secondary" type="button" id="btnTogglePassword">
+                                    <i class="bi bi-eye"></i>
+                                </button>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <!-- BOTONES DE ACCIÓN -->
+
+                    <div class="form-actions">
+
+                        <button
+                            type="button"
+                            class="btn btn-dark"
+                            id="btnEditar"
+                        >
+                            Editar perfil
+                        </button>
+
+                        <button
+                            type="submit"
+                            class="btn btn-cyan"
+                            id="btnGuardar"
+                            disabled
+                        >
+                            Guardar cambios
+                        </button>
+
+                        <button
+                            type="button"
+                            class="btn btn-outline"
+                            id="btnCancelar"
+                            disabled
+                        >
+                            Cancelar
+                        </button>
+
+                    </div>
+
+
+                    <p class="form-hint">
+                        Los campos se habilitan al seleccionar "Editar perfil".
+                    </p>
+
+
+                </form>
+
+            </section>
+
+
+        </div>
+
+
+    </main>
+
+
+    <!-- CARGAR NAVBAR REUTILIZABLE -->
+
+    <script>
+
+        fetch("{{ asset('components/navbar/navbar.html') }}")
+
+            .then(response => response.text())
+
+            .then(data => {
+
+                document.getElementById("navbar").innerHTML = data;
+
+                const script =
+                    document.createElement("script");
+
+                script.src =
+                    "{{ asset('components/navbar/navbar.js') }}";
+
+                document.body.appendChild(script);
+
+            })
+
+            .catch(error => {
+
+                console.error(
+                    "Error al cargar el navbar:",
+                    error
+                );
+
+            });
+
+    </script>
+
+
+    <script src="{{ asset('js/perfil.js') }}"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,600 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&family=Roboto+Mono:wght@400;500;600&display=swap');
+
+
+* {
+    box-sizing: border-box;
+}
+
+
+body {
+    margin: 0;
+
+    background-color: #E4E8F7;
+
+    color: #101828;
+}
+
+
+/* =========================
+   PÁGINA
+========================= */
+
+.espacios-page {
+    width: 100%;
+    max-width: 1440px;
+
+    margin: 0 auto;
+
+    padding: 34px 56px 80px;
+}
+
+
+/* =========================
+   ENCABEZADO
+========================= */
+
+.page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 30px;
+
+    margin-bottom: 42px;
+}
+
+
+.page-header h1 {
+    margin: 0;
+
+    font-family:
+        "Roboto",
+        sans-serif;
+
+    font-size: 42px;
+    font-weight: 500;
+
+    color: #101828;
+}
+
+
+.page-header p {
+    margin: 20px 0 0;
+
+    font-family:
+        "Roboto Mono",
+        monospace;
+
+    font-size: 16px;
+
+    color: #475467;
+}
+
+
+/* =========================
+   PUBLICAR
+========================= */
+
+.btn-publicar {
+    width: 228px;
+    height: 52px;
+
+    border: none;
+    border-radius: 24px;
+
+    background-color: #475467;
+
+    color: #FFFFFF;
+
+    font-family:
+        "Roboto Mono",
+        monospace;
+
+    font-size: 16px;
+
+    cursor: pointer;
+}
+
+
+/* =========================
+   LAYOUT
+========================= */
+
+.espacios-layout {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 820px)
+        minmax(300px, 424px);
+
+    gap: 34px;
+
+    align-items: start;
+}
+
+
+/* =========================
+   LISTA
+========================= */
+
+.espacios-list {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 30px;
+}
+
+
+/* =========================
+   TARJETA
+========================= */
+
+.espacio-card {
+    min-height: 248px;
+
+    display: grid;
+
+    grid-template-columns:
+        190px
+        1fr
+        185px;
+
+    gap: 28px;
+
+    align-items: center;
+
+    padding: 26px;
+
+    background-color: #FFFFFF;
+
+    border:
+        1px solid
+        #B8C7D9;
+
+    border-radius: 18px;
+}
+
+
+/* =========================
+   IMAGEN
+========================= */
+
+.espacio-image {
+    width: 190px;
+    height: 148px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background-color: #C4E3FF;
+
+    border-radius: 16px;
+}
+
+
+.espacio-image img {
+    width: 105px;
+    height: 105px;
+
+    object-fit: contain;
+}
+
+
+/* =========================
+   INFORMACIÓN
+========================= */
+
+.espacio-info h2 {
+    margin: 0 0 22px;
+
+    font-family:
+        "Roboto",
+        sans-serif;
+
+    font-size: 22px;
+    font-weight: 500;
+
+    color: #101828;
+}
+
+
+.espacio-info p {
+    margin: 8px 0;
+
+    font-family:
+        "Roboto Mono",
+        monospace;
+
+    font-size: 15px;
+
+    color: #475467;
+}
+
+
+.cantidad-texto {
+    color: #101828 !important;
+
+    font-weight: 500;
+}
+
+
+/* =========================
+   ACCIONES
+========================= */
+
+.espacio-actions {
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: stretch;
+
+    gap: 10px;
+}
+
+
+/* =========================
+   ESTADO
+========================= */
+
+.status {
+    min-height: 36px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 0 12px;
+
+    border-radius: 18px;
+
+    font-family:
+        "Roboto Mono",
+        monospace;
+
+    font-size: 13px;
+
+    text-align: center;
+}
+
+
+.status.disponible {
+    background-color: #84D7E6;
+
+    border:
+        1px solid
+        #B8C7D9;
+
+    color: #101828;
+}
+
+
+.status.no-disponible {
+    background-color: #FDECEC;
+
+    border:
+        1px solid
+        #FDA29B;
+
+    color: #B42318;
+}
+
+
+/* =========================
+   BOTONES
+========================= */
+
+.btn-secondary,
+.btn-primary {
+    min-height: 44px;
+
+    padding:
+        0
+        12px;
+
+    border-radius: 24px;
+
+    font-family:
+        "Roboto Mono",
+        monospace;
+
+    font-size: 14px;
+
+    cursor: pointer;
+}
+
+
+.btn-secondary {
+    background-color: #FFFFFF;
+
+    border:
+        1px solid
+        #475467;
+
+    color: #101828;
+}
+
+
+.btn-primary {
+    border: none;
+
+    background-color: #475467;
+
+    color: #FFFFFF;
+}
+
+
+/* =========================
+   HOVERS
+========================= */
+
+.btn-publicar,
+.btn-secondary,
+.btn-primary,
+.btn-cancelar,
+.btn-guardar {
+
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.15s ease,
+        opacity 0.2s ease;
+}
+
+
+.btn-publicar:hover,
+.btn-primary:hover,
+.btn-guardar:hover {
+
+    background-color: #344054;
+}
+
+
+.btn-secondary:hover,
+.btn-cancelar:hover {
+
+    background-color: #E4E8F7;
+}
+
+
+.btn-publicar:active,
+.btn-secondary:active,
+.btn-primary:active,
+.btn-cancelar:active,
+.btn-guardar:active {
+
+    transform: scale(0.97);
+}
+
+
+/* =========================
+   RESUMEN
+========================= */
+
+.summary-card {
+    padding:
+        24px
+        32px
+        38px;
+
+    background-color: #FFFFFF;
+
+    border:
+        1px solid
+        #B8C7D9;
+
+    border-radius: 18px;
+}
+
+
+.summary-card > h2 {
+    margin: 0 0 20px;
+
+    font-family:
+        "Roboto",
+        sans-serif;
+
+    font-size: 20px;
+    font-weight: 500;
+
+    color: #101828;
+}
+
+
+.summary-item {
+    min-height: 128px;
+
+    margin-top: 22px;
+
+    padding: 22px;
+
+    border:
+        1px solid
+        #B8C7D9;
+
+    border-radius: 18px;
+
+    background-color: #FFFFFF;
+}
+
+
+.summary-item p {
+    margin: 0;
+
+    font-family:
+        "Roboto Mono",
+        monospace;
+
+    font-size: 14px;
+
+    color: #475467;
+}
+
+
+.summary-item strong {
+    display: block;
+
+    margin-top: 14px;
+
+    font-family:
+        "Roboto",
+        sans-serif;
+
+    font-size: 32px;
+    font-weight: 500;
+
+    color: #101828;
+}
+
+
+/* =========================
+   MODAL BOOTSTRAP
+========================= */
+
+.autopark-modal-content {
+    border: 1px solid #B8C7D9;
+    border-radius: 18px;
+    overflow: hidden;
+}
+
+.autopark-modal-content .modal-header,
+.autopark-modal-content .modal-footer {
+    border-color: #D0D5DD;
+}
+
+.autopark-modal-content .modal-header {
+    align-items: flex-start;
+    margin-bottom: 0;
+}
+
+.autopark-modal-content .modal-header h2 {
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+    color: #101828;
+}
+
+.autopark-modal-content .modal-header p {
+    font-family: "Roboto Mono", monospace;
+    color: #475467;
+    font-size: 14px;
+}
+
+.autopark-modal-content .form-label {
+    font-family: "Roboto Mono", monospace;
+    color: #475467;
+}
+
+.autopark-modal-content .form-control,
+.autopark-modal-content .form-select {
+    min-height: 52px;
+    border-color: #B8C7D9;
+    border-radius: 12px;
+    font-family: "Roboto Mono", monospace;
+}
+
+.autopark-modal-content .form-control:focus,
+.autopark-modal-content .form-select:focus {
+    border-color: #475467;
+    box-shadow: 0 0 0 0.25rem rgba(132, 215, 230, 0.3);
+}
+
+.autopark-modal-content .form-control:disabled,
+.autopark-modal-content .form-select:disabled {
+    background-color: #E4E8F7;
+    color: #667085;
+}
+
+.form-message {
+    min-height: 24px;
+    font-family: "Roboto Mono", monospace;
+    font-size: 14px;
+}
+
+.btn-cancelar,
+.btn-guardar {
+    min-width: 160px;
+    min-height: 48px;
+    border-radius: 24px;
+    font-family: "Roboto Mono", monospace;
+    font-size: 16px;
+}
+
+.btn-cancelar {
+    border: 1px solid #475467;
+    background-color: #FFFFFF;
+    color: #101828;
+}
+
+.btn-guardar {
+    border: none;
+    background-color: #475467;
+    color: #FFFFFF;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 1050px) {
+
+    .espacios-layout {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+@media (max-width: 760px) {
+
+    .espacios-page {
+        padding:
+            30px
+            20px
+            60px;
+    }
+
+
+    .page-header {
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+
+    .btn-publicar {
+        width: 100%;
+    }
+
+
+    .espacio-card {
+        grid-template-columns: 1fr;
+    }
+
+
+    .espacio-image {
+        width: 100%;
+    }
+
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+
+    .modal-buttons {
+        flex-direction: column;
+    }
+
+
+    .btn-cancelar,
+    .btn-guardar {
+        width: 100%;
+    }
+
+}

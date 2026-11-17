@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Detalle del estacionamiento - AutoPark</title>
+
+    <link rel="stylesheet" href="{{ asset('assets/vendor/bootstrap/bootstrap.min.css') }}">
+
+    <script src="{{ asset('assets/vendor/bootstrap/bootstrap.bundle.min.js') }}"></script>
+
+    <link
+        rel="stylesheet"
+        href="{{ asset('components/navbar/navbar.css') }}"
+    >
+
+    <link
+        rel="stylesheet"
+        href="{{ asset('css/detalle.css') }}"
+    >
+
+</head>
+
+
+<body>
+
+    <!-- NAVBAR -->
+    <div id="navbar"></div>
+
+
+    <main class="detalle-page">
+
+
+        <!-- ENCABEZADO -->
+
+        <section class="page-header">
+
+            <h1 id="parkingName">
+                Estacionamiento Centro
+            </h1>
+
+            <p id="parkingLocation">
+                Centro de Pachuca · A 8 min de tu ubicación
+            </p>
+
+        </section>
+
+
+
+        <div class="detalle-layout">
+
+
+            <!-- =========================
+                LADO IZQUIERDO
+            ========================== -->
+
+            <section class="detalle-main">
+
+
+                <!-- VISTA PREVIA -->
+
+                <div class="parking-preview">
+
+                    <div class="parking-preview-card">
+
+
+                        <div class="parking-image">
+
+                            <img
+                                src="{{ asset('assets/images/logo-autopark.png') }}"
+                                alt="Logo AutoPark"
+                            >
+
+                        </div>
+
+
+                        <div class="parking-preview-info">
+
+                            <h2 id="parkingEntrance">
+                                Entrada sobre Av. principal
+                            </h2>
+
+                            <p id="parkingDescription">
+                                Zona iluminada · Acceso amplio
+                            </p>
+                            <div class="detail-quick-actions">
+                                <button type="button" id="btnFavorito" class="btn btn-outline-secondary detail-quick-button" aria-pressed="false">♡ Favorito</button>
+                                <button type="button" id="btnCopiarUbicacion" class="btn btn-outline-secondary detail-quick-button">Copiar ubicación</button>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- DETALLES -->
+
+                <section class="details-section">
+
+
+                    <div class="details-content">
+
+                        <h2>
+                            Detalles del espacio
+                        </h2>
+
+
+                        <div class="details-text">
+
+                            <p>
+                                Disponibilidad:
+                                <span id="parkingAvailability">
+                                    5 espacios
+                                </span>
+                            </p>
+
+                            <p>
+                                Horario:
+                                <span id="parkingSchedule">
+                                    07:00 – 23:00
+                                </span>
+                            </p>
+
+                            <p>
+                                Tipo:
+                                <span id="parkingType">
+                                    Exterior
+                                </span>
+                            </p>
+
+                            <p>
+                                Acceso:
+                                <span id="parkingAccess">
+                                    Automóvil y motocicleta
+                                </span>
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- SERVICIOS -->
+
+                    <aside class="services-card">
+
+                        <h3>
+                            Servicios
+                        </h3>
+
+                        <div id="servicesList" aria-label="Servicios del estacionamiento"></div>
+                        <p id="serviceDescription" class="service-description" aria-live="polite">Selecciona un servicio para ver más información.</p>
+
+                    </aside>
+
+                </section>
+
+            </section>
+
+
+
+            <!-- =========================
+                RESERVA
+            ========================== -->
+
+            <aside class="reservation-card">
+
+
+                <div class="reservation-title">
+
+                    <p id="reservationTitle">
+                        Reservar espacio
+                    </p>
+
+                    <h2 id="parkingPrice">
+                        $20 MXN / hora
+                    </h2>
+
+                </div>
+
+
+                <p id="editModeNotice" class="edit-reserva-notice d-none">Editando una reserva existente. Los cambios reemplazarán el horario y el total anteriores.</p>
+
+                <form id="reservationForm">
+
+
+                    <!-- FECHA -->
+
+                    <div class="form-group">
+
+                        <label for="fecha">
+                            Fecha
+                        </label>
+
+                        <input class="form-control"
+                            type="date"
+                            id="fecha"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <!-- HORARIOS -->
+
+                    <div class="form-row">
+
+
+                        <div class="form-group">
+
+                            <label for="horaEntrada">
+                                Hora de entrada
+                            </label>
+
+                            <input class="form-control"
+                                type="time"
+                                id="horaEntrada"
+                                value="18:00"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="horaSalida">
+                                Hora de salida
+                            </label>
+
+                            <input class="form-control"
+                                type="time"
+                                id="horaSalida"
+                                value="20:00"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- INTERACCIÓN LIBRE: COTIZADOR DINÁMICO RF06 -->
+                    <div class="duration-panel">
+                        <div class="duration-copy">
+                            <span id="duracionLabel" class="duration-label">Duración de la reserva</span>
+                            <small class="duration-hint">Cada fracción se cobra como una hora completa.</small>
+                        </div>
+                        <div id="durationControl" class="duration-controls" role="group" aria-labelledby="duracionLabel">
+                            <button type="button" class="btn btn-outline-secondary duration-button" data-duration-action="decrease" aria-label="Reducir una hora">−</button>
+                            <output id="duracionReserva" class="duration-value" aria-live="polite">2 horas</output>
+                            <button type="button" class="btn btn-outline-secondary duration-button" data-duration-action="increase" aria-label="Aumentar una hora">+</button>
+                        </div>
+                    </div>
+
+                    <!-- TOTAL -->
+
+                    <div class="total-card">
+
+                        <span>
+                            Total estimado
+                        </span>
+
+                        <strong id="totalEstimado">
+                            $40 MXN
+                        </strong>
+
+                    </div>
+
+
+
+                    <p
+                        id="reservationMessage"
+                        class="reservation-message"
+                    ></p>
+
+
+
+                    <button
+                        type="submit"
+                        class="btn reserve-button"
+                    >
+                        <span id="reservationSubmitText">Reservar ahora</span>
+                    </button>
+
+                </form>
+
+            </aside>
+
+        </div>
+
+    </main>
+
+
+
+    <!-- Notificación de acciones -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="toastAutoPark" class="toast" role="status" aria-live="polite" aria-atomic="true">
+            <div class="toast-header">
+                <strong class="me-auto">AutoPark</strong><small>Notificación</small>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Cerrar"></button>
+            </div>
+            <div id="mensajeToast" class="toast-body"></div>
+        </div>
+    </div>
+
+    <!-- CARGAR NAVBAR -->
+
+    <script>
+
+        fetch("{{ asset('components/navbar/navbar.html') }}")
+
+            .then(response => response.text())
+
+            .then(data => {
+
+                document.getElementById("navbar").innerHTML = data;
+
+                const script =
+                    document.createElement("script");
+
+                script.src =
+                    "{{ asset('components/navbar/navbar.js') }}";
+
+
+                script.addEventListener("load", function marcarBuscarActivo() {
+
+                    /*
+                        detalle pertenece
+                        a la sección Buscar.
+                    */
+
+                    document
+                        .querySelectorAll(".nav-link")
+                        .forEach(link => {
+
+                            link.classList.remove(
+                                "active"
+                            );
+
+
+                            if (
+                                link
+                                    .getAttribute("href")
+                                    .includes("busqueda")
+                            ) {
+
+                                link.classList.add(
+                                    "active"
+                                );
+
+                            }
+
+                        });
+
+                });
+
+
+                document.body.appendChild(
+                    script
+                );
+
+            })
+
+            .catch(error => {
+
+                console.error(
+                    "Error al cargar el navbar:",
+                    error
+                );
+
+            });
+
+    </script>
+
+
+    <script src="{{ asset('js/detalle.js') }}"></script>
+
+</body>
+
+</html>
